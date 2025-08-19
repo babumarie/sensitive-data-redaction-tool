@@ -1,0 +1,27 @@
+
+---
+
+## `.gitignore` Content
+
+Here’s what you should add to `.gitignore` to keep your repo clean:
+
+```txt
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Jupyter and Colab
+.ipynb_checkpoints/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
