@@ -104,7 +104,7 @@ python -m pytest tests/ --cov=src --cov-report=html
 - **Clean Code**: Readable, maintainable codebase with clear documentation
 - **Version Control**: Structured Git workflow with meaningful commits
 
-## 🔬 Research Contributions & Skills Demonstrated
+## Research Contributions & Skills Demonstrated
 
 ### Technical Competencies
 - **Pattern Recognition**: Advanced regex engineering for complex data pattern matching
