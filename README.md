@@ -1,146 +1,251 @@
-# Sensitive Data Redaction Tool
+# Synthetic Dialogue Generator
 
-A robust Python library for automatically detecting and redacting sensitive information from text data, designed for cybersecurity applications, data privacy compliance, and secure multi-agent communication systems.
+A modular framework for generating structured multi-agent dialogues in cybersecurity scenarios, designed to support research in conversational AI, multi-agent systems, and security training simulations.
 
 ## Project Overview
 
-This tool addresses the critical need for automated data sanitization in security-sensitive environments. It employs advanced regex pattern matching to identify and redact various types of personally identifiable information (PII) and sensitive data, making it suitable for log sanitization, data preprocessing, and privacy-preserving workflows.
+This system creates synthetic conversations between cybersecurity agents with distinct roles and objectives, enabling researchers to generate training data for conversational AI models, simulate security scenarios, and study multi-agent interactions in controlled environments. The framework employs role-based agent modeling with intent-driven dialogue generation.
 
-**Academic Relevance**: Demonstrates proficiency in security engineering, pattern recognition, and privacy-preserving technologies—key competencies for cybersecurity and data science research.
+**Academic Relevance**: Demonstrates competencies in multi-agent system design, conversational AI, and cybersecurity domain modeling - essential skills for research in AI safety, human-computer interaction, and security automation.
 
-## Key Features
+## Core Features
 
-- **Multi-Pattern Detection**: Identifies emails, IP addresses, access tokens, and usernames
-- **Configurable Redaction**: Extensible pattern system for custom sensitive data types
-- **Production-Ready**: Comprehensive unit test coverage ensuring reliability
-- **Modular Architecture**: Clean separation of concerns with easy extensibility
-- **Research-Friendly**: Colab-compatible for rapid prototyping and experimentation
+**Role-Based Agent Architecture**: Configurable agent personas with domain-specific roles and objectives
 
-## Technical Implementation
+**Intent-Driven Dialogue Generation**: Context-aware message generation based on agent roles and goals
 
-### Core Components
+**Modular Design**: Extensible component architecture supporting diverse dialogue scenarios
 
-- **Pattern Engine**: Regex-based detection system with predefined patterns for common sensitive data types
-- **Redaction Engine**: Text processing pipeline that systematically replaces sensitive patterns with labeled placeholders
-- **Test Suite**: Comprehensive unit tests validating detection accuracy across multiple data types
+**Structured Output**: Standardized dialogue format for downstream analysis and model training
 
-### Supported Data Types
+**Domain-Specific Focus**: Cybersecurity-oriented roles and scenarios for specialized applications
 
-| Data Type | Pattern Coverage | Example |
-|-----------|------------------|---------|
-| Email Addresses | RFC-compliant format | `user@domain.com` → `[REDACTED_EMAIL]` |
-| IP Addresses | IPv4 format | `192.168.1.1` → `[REDACTED_IP]` |
-| Access Tokens | 32+ character strings | `abc123...` → `[REDACTED_TOKEN]` |
-| Usernames | Prefixed identifiers | `user_admin` → `[REDACTED_USERNAME]` |
+## Technical Architecture
 
-## Quick Start
+### Multi-Agent Framework
 
-### Installation
+The system implements a structured approach to dialogue generation:
+
+- **Agent Modeling**: Role-based agent definitions with specific cybersecurity personas
+- **Intent Resolution**: Dynamic intent generation based on agent roles and context
+- **Prompt Engineering**: Template-based message generation with role-appropriate language
+- **Dialogue Orchestration**: Sequential conversation flow management
+
+### Component Structure
+
+```
+DialogueGenerator
+├── Agent System (agents.py)
+│   ├── Role Definition
+│   └── Intent Resolution
+├── Prompt Engine (prompts.py)
+│   ├── Template Management
+│   └── Context Integration
+└── Generation Logic (dialogue_generator.py)
+    ├── Conversation Flow
+    └── Output Structuring
+```
+
+### Supported Agent Roles
+
+| Role | Intent | Application Domain |
+|------|--------|-------------------|
+| Analyst | Investigate suspicious activity | Threat detection and analysis |
+| Attacker | Exploit vulnerabilities | Red team simulation |
+| Defender | Mitigate threats and secure systems | Blue team response |
+
+## Installation and Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/sensitive-data-redaction-tool.git
-cd sensitive-data-redaction-tool
+git clone https://github.com/babumarie/synthetic-dialogue-generator.git
+cd synthetic-dialogue-generator
 
 # Set up virtual environment
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install dependencies
-pip install -r requirements.txt
+# Install dependencies (currently no external dependencies)
+# Optional: install testing dependencies
+pip install pytest pytest-cov
 ```
 
-### Basic Usage
+## Usage Examples
+
+### Basic Dialogue Generation
 
 ```python
-from src.redactor import Redactor
+from src.synthetic_dialogue.dialogue_generator import DialogueGenerator
 
-# Initialize the redactor
-redactor = Redactor()
+# Initialize generator
+generator = DialogueGenerator()
 
-# Process sensitive text
-text = "Contact admin@company.com at server 10.0.0.1"
-redacted = redactor.redact(text)
-print(redacted)
-# Output: "Contact [REDACTED_EMAIL] at server [REDACTED_IP]"
+# Define conversation sequence
+role_sequence = ["Analyst", "Attacker", "Defender"]
+
+# Generate structured dialogue
+dialogue = generator.generate(role_sequence)
+
+# Output structured conversation
+for turn in dialogue:
+    print(f"{turn['agent']} ({turn['role']}): {turn['message']}")
+    print(f"Intent: {turn['intent']}\n")
 ```
 
-### Testing
+### Custom Scenario Generation
+
+```python
+# Multi-turn security incident simulation
+incident_roles = ["Analyst", "Analyst", "Attacker", "Defender", "Defender"]
+incident_dialogue = generator.generate(incident_roles)
+
+# Export for training data
+import json
+with open('security_dialogue.json', 'w') as f:
+    json.dump(incident_dialogue, f, indent=2)
+```
+
+### Testing Framework
 
 ```bash
-# Run the complete test suite
-python -m pytest tests/
+# Run comprehensive tests
+python -m pytest tests/ -v
 
-# Run with coverage report
+# Generate coverage report
 python -m pytest tests/ --cov=src --cov-report=html
 ```
 
-## Academic & Research Applications
+## Research Applications
 
-### Cybersecurity Research
-- **Log Analysis**: Sanitize system logs while preserving analytical value
-- **Threat Intelligence**: Process threat data while protecting source confidentiality
-- **Security Auditing**: Ensure compliance with data protection regulations
+### Conversational AI Research
 
-### Data Science & Privacy
-- **Data Preprocessing**: Clean datasets before sharing or analysis
-- **Privacy-Preserving ML**: Enable machine learning on sensitive data
-- **GDPR/CCPA Compliance**: Automated PII removal for regulatory adherence
+**Training Data Generation**: Create diverse cybersecurity dialogue datasets for language model fine-tuning
+
+**Dialogue System Evaluation**: Generate benchmark conversations for assessing conversational AI performance
+
+**Context Understanding**: Study how agents maintain context across multi-turn security discussions
 
 ### Multi-Agent Systems
-- **Secure Communication**: Filter sensitive information in agent interactions
-- **Knowledge Sharing**: Enable collaboration while maintaining privacy boundaries
-- **Federated Learning**: Protect individual data sources in distributed learning
 
-## 🏗 Architecture & Design Patterns
+**Agent Behavior Modeling**: Research framework for studying role-based agent interactions
+
+**Emergent Communication**: Investigate how specialized agents develop domain-specific communication patterns
+
+**Coordination Mechanisms**: Study collaboration and conflict resolution in multi-agent security scenarios
+
+### Cybersecurity Education
+
+**Simulation-Based Training**: Generate realistic security scenarios for educational purposes
+
+**Role-Playing Exercises**: Create structured exercises for security team training
+
+**Scenario Planning**: Develop what-if scenarios for incident response planning
+
+## Design Patterns and Architecture
 
 ### Object-Oriented Design
-- **Single Responsibility**: Each class handles one specific aspect of redaction
-- **Open/Closed Principle**: Easy to extend with new patterns without modifying core logic
-- **Dependency Injection**: Configurable pattern sets for different use cases
 
-### Software Engineering Best Practices
-- **Test-Driven Development**: Comprehensive unit test coverage
-- **Clean Code**: Readable, maintainable codebase with clear documentation
-- **Version Control**: Structured Git workflow with meaningful commits
+**Agent Abstraction**: Clean separation between agent identity and behavior
 
-## Research Contributions & Skills Demonstrated
+**Strategy Pattern**: Pluggable intent and prompt generation strategies
 
-### Technical Competencies
-- **Pattern Recognition**: Advanced regex engineering for complex data pattern matching
-- **Security Engineering**: Understanding of data privacy and protection mechanisms
-- **Software Testing**: Rigorous validation through automated testing frameworks
-- **Python Proficiency**: Professional-level Python development with modern practices
+**Factory Pattern**: Extensible agent creation with role-specific configurations
 
-### Research Methodologies
-- **Problem Decomposition**: Breaking complex privacy challenges into manageable components
-- **Systematic Evaluation**: Quantitative testing of detection accuracy across data types
-- **Extensible Design**: Architecture supporting future research directions
+### Software Engineering Principles
 
-## Performance & Scalability
+**Modularity**: Clear separation of concerns across components
 
-- **Lightweight**: Minimal dependencies for easy integration
-- **Fast Processing**: Efficient regex compilation and text processing
-- **Memory Efficient**: Streaming-friendly design for large document processing
-- **Extensible**: Simple pattern addition without performance degradation
+**Extensibility**: Framework designed for easy addition of new roles and scenarios
 
-## Future Enhancements
+**Testability**: Comprehensive unit testing ensuring reliable dialogue generation
 
-- **Machine Learning Integration**: Context-aware detection using NLP models
-- **Custom Pattern DSL**: Domain-specific language for pattern definition
-- **Real-time Processing**: Stream processing capabilities for live data feeds
-- **Multi-language Support**: Extend beyond English text processing
+## Technical Skills Demonstrated
 
-## Requirements
+### AI and Machine Learning
+
+**Multi-Agent Modeling**: Understanding of agent-based systems and role modeling
+
+**Natural Language Generation**: Template-based text generation with context awareness
+
+**Domain Modeling**: Cybersecurity domain expertise integrated into system design
+
+### Software Development
+
+**Python Architecture**: Professional modular design with clean interfaces
+
+**Testing Methodology**: Systematic validation of component behavior
+
+**Documentation**: Clear code documentation and architectural decisions
+
+## System Design Considerations
+
+### Scalability and Performance
+
+**Memory Efficient**: Lightweight agent models suitable for large-scale generation
+
+**Stateless Design**: Enables parallel dialogue generation across multiple processes
+
+**Fast Generation**: Template-based approach ensures rapid conversation creation
+
+### Extensibility Framework
+
+**Plugin Architecture**: Easy addition of new agent roles and behaviors
+
+**Configuration Driven**: External configuration for dialogue parameters
+
+**Template System**: Flexible prompt engineering supporting diverse scenarios
+
+## Future Research Directions
+
+### Advanced Agent Modeling
+
+**Personality Integration**: Incorporate personality traits affecting communication styles
+
+**Learning Agents**: Implement agents that adapt based on conversation history
+
+**Emotional Modeling**: Add emotional states influencing agent responses
+
+### Enhanced Dialogue Generation
+
+**Context Memory**: Implement long-term memory for multi-session conversations
+
+**Dynamic Role Switching**: Enable agents to change roles during conversations
+
+**Conflict Resolution**: Model negotiation and consensus-building behaviors
+
+### Integration with Large Language Models
+
+**LLM-Powered Generation**: Replace template system with large language model integration
+
+**Fine-Tuning Pipeline**: Automated fine-tuning using generated dialogue data
+
+**Evaluation Metrics**: Develop metrics for assessing dialogue quality and realism
+
+## System Requirements
 
 - Python 3.7+
 - No external dependencies for core functionality
-- Optional: pytest for testing, coverage for test metrics
+- Optional: pytest for testing, json for data export
 
-## License
+## Development Methodology
 
-MIT License - see LICENSE file for details.
+**Iterative Design**: Rapid prototyping with continuous refinement
 
---
+**Test-Driven Development**: Comprehensive testing ensuring reliable generation
 
-**Research Impact**: This project demonstrates practical application of privacy-preserving technologies and software engineering principles, directly relevant to contemporary challenges in cybersecurity, data governance, and ethical AI development.
+**Documentation-First**: Clear specifications before implementation
+
+**Modular Development**: Independent component development and integration
+
+## Contributing and Extension
+
+The framework is designed for easy extension:
+
+- **New Roles**: Add agent roles by extending the role_intents dictionary
+- **Custom Prompts**: Implement new prompt templates for specific scenarios
+- **Advanced Logic**: Replace simple template generation with sophisticated algorithms
+- **Integration**: Connect with external AI services or dialogue systems
+
+---
+
+This framework provides essential infrastructure for cybersecurity dialogue research while demonstrating practical understanding of multi-agent systems, conversational AI, and domain-specific modeling crucial for advanced AI and cybersecurity research applications.
